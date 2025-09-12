@@ -1,0 +1,65 @@
+---
+title: "2025-08-29"
+format:
+  html: default
+  pdf: default
+params:
+  course: "mc451"
+  word_min: 250
+  word_max: 300
+  p1: 'Think about a claim you’ve seen online that you weren’t sure was true. How would the principles of empiricism and control help you design a study to test whether it was accurate?'
+  p2: 'Choose a topic you’re curious about in media or communication (e.g., the effect of streaming on movie watching, how politicians use TikTok, portrayals of families on TV). Write a specific research question about it. Then, briefly describe what you would do in each of the five stages of the research workflow (Conceptualization, Design, Data Collection, Data Analysis, Communication) to answer it.'
+  p3: 'Describe a time you learned a digital tool (in any context—school, work, a hobby) without really understanding the reasoning behind what you were doing. How might knowing the "why"—the tool-agnostic principles—have helped you use it more effectively, solve problems, or even choose a better tool for the task?'
+---
+
+## Choose **one** prompt to answer
+
+> **Prompt A:** `r params$p1`
+
+---
+
+## Response
+
+<!-- RESPONSE-START -->
+I have seen the claim that wearing blue light blocking glasses helps prevent headaches multiple times, but I have never known for sure if it was accurate. The principle of empiricism would help me to test this claim by turning it into something observable and measurable. I would start by defining the variables: the type of glasses (blue light blocking versus clear placebo), the amount or frequency of headaches, and the intensity or pain level (using a standardized 1–10 scale) of those headaches. The measurable data would be the number of headaches and average pain/intensity over a set time period. Collecting this type of data makes the claim concrete and testable instead of relying on personal stories or the marketing of the company. The principle of control would ensure that other factors do not interfere with the results of the study. For example, I would randomly assign participants the real blue light blocking glasses or the placebo clear glasses and require everyone to wear them for the same amount of time each day, especially during screen use. By making sure the conditions are constant, I could focus on the effect of the glasses themselves. If the participants wearing blue light blocking glasses reported fewer or less painful headaches than those wearing placebo glasses, the evidence would support the claim. If no difference was found, it would debunk the idea that the glasses help prevent headaches and other factors like screen time, stress, or posture might be the real cause of the headaches.
+<!-- RESPONSE-END -->
+
+---
+
+## Word Count & Range Check
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+get_response_text <- function() {
+  f <- knitr::current_input()
+  if (is.null(f) || !file.exists(f)) return("")
+  x <- readLines(f, warn = FALSE)
+  # Find the lines that EXACTLY match the start/end markers
+  s <- grep("^<!-- RESPONSE-START -->$", x)
+  e <- grep("^<!-- RESPONSE-END -->$", x)
+  if (length(s) != 1 || length(e) != 1 || e <= s) return("")
+  paste(x[(s + 1L):(e - 1L)], collapse = "\n")
+}
+count_words <- function(txt) {
+  # Remove code blocks and inline code before counting
+  txt <- gsub("```[\\s\\S]*?```", " ", txt, perl = TRUE)
+  txt <- gsub("`[^`]*`", " ", txt, perl = TRUE)
+  # Keep letters, numbers, spaces, hyphens, and apostrophes
+  txt <- gsub("[^\\p{L}\\p{N}\\s'-]", " ", txt, perl = TRUE)
+  # Split by whitespace and count non-empty words
+  words <- unlist(strsplit(txt, "\\s+", perl = TRUE))
+  words <- words[nzchar(words)]
+  length(words)
+}
+txt <- get_response_text()
+n <- count_words(txt)
+minw <- as.integer(params$word_min)
+maxw <- as.integer(params$word_max)
+in_range <- n >= minw && n <= maxw
+cat(sprintf("**Word count:** %d  \n", n))
+cat(sprintf("**Required range (%s):** %d–%d words  \n",
+            toupper(params$course), minw, maxw))
+cat(if (in_range) "**Status:** ✅ In range\n" else "**Status:** ❌ Out of range\n")
+```
