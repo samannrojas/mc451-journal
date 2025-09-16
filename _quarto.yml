@@ -1,0 +1,27 @@
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "Course Journal"
+  author: "YOUR NAME"
+  date: today
+  downloads: [pdf, epub]
+  chapters:
+    - index.qmd
+    # --- auto-managed: do not edit below; scripts/update_chapters.R rewrites this ---
+    # BEGIN AUTO
+    - entries/2025-08-29.qmd
+    - entries/2025-09-05.qmd
+    - entries/2025-09-12.qmd
+    # END AUTO
+    # --- end auto-managed ---
+
+format:
+  html:
+    toc: true
+    number-sections: true
+    css: assets/styles.scss
+  pdf:
+    toc: true
+    number-sections: true

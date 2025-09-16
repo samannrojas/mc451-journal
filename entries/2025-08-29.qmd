@@ -16,15 +16,17 @@ params:
 
 > **Prompt A:** `r params$p1`
 
----
+------------------------------------------------------------------------
 
 ## Response
 
 <!-- RESPONSE-START -->
+
 I have seen the claim that wearing blue light blocking glasses helps prevent headaches multiple times, but I have never known for sure if it was accurate. The principle of empiricism would help me to test this claim by turning it into something observable and measurable. I would start by defining the variables: the type of glasses (blue light blocking versus clear placebo), the amount or frequency of headaches, and the intensity or pain level (using a standardized 1–10 scale) of those headaches. The measurable data would be the number of headaches and average pain/intensity over a set time period. Collecting this type of data makes the claim concrete and testable instead of relying on personal stories or the marketing of the company. The principle of control would ensure that other factors do not interfere with the results of the study. For example, I would randomly assign participants the real blue light blocking glasses or the placebo clear glasses and require everyone to wear them for the same amount of time each day, especially during screen use. By making sure the conditions are constant, I could focus on the effect of the glasses themselves. If the participants wearing blue light blocking glasses reported fewer or less painful headaches than those wearing placebo glasses, the evidence would support the claim. If no difference was found, it would debunk the idea that the glasses help prevent headaches and other factors like screen time, stress, or posture might be the real cause of the headaches.
+
 <!-- RESPONSE-END -->
 
----
+------------------------------------------------------------------------
 
 ## Word Count & Range Check
 

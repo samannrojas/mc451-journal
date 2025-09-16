@@ -1,0 +1,19 @@
+---
+title: "Journal Home"
+format:
+  html: default
+  pdf: default
+---
+
+This journal renders as a **book**. Each dated entry is a chapter.
+
+- **MC 451 entries:** 250–300 words
+- At the **end of each chapter** you’ll see **three prompts**. **Answer only one**.
+- Write your answer in the **Response** box; the page shows an **automatic word count** and whether you’re in range.
+
+### Add a new entry
+
+1. In R, run: `source("scripts/new_journal_entry.R")`
+2. A new chapter like `entries/2025-09-01.qmd` appears with three prompts injected.
+3. The script updates `_quarto.yml` so the new entry is included in the book.
+4. Render the book: click **Render** in RStudio or run `quarto render`.

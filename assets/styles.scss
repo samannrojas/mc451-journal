@@ -1,0 +1,4 @@
+:root { --accent: #e5182d; }
+h1, h2, h3 { scroll-margin-top: 2rem; }
+blockquote { border-left: 3px solid var(--accent); padding-left: .75rem; color: #444; }
+code, pre { background: #f6f6f6; }
