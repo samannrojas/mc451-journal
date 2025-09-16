@@ -1,0 +1,65 @@
+---
+title: "2025-09-16"
+format:
+  html: default
+  pdf: default
+params:
+  course: "mc451"
+  word_min: 250
+  word_max: 300
+  p1: 'Reflect on the metaphor introduced at the beginning of the chapter: walking into a conversation that’s already underway. Have you ever had that experience in real life (in class, online, or at work)? What happened when you did—or didn’t—take the time to listen first? How does that scenario relate to the role of the literature review in research? Why is it important to understand what’s already been said before adding your ideas?'
+  p2: 'Think about a media-related topic that interests you (e.g., influencer culture, video game violence, media portrayals of mental health). Now imagine you are preparing to write a literature review on that topic. What kind of “gap” would you look for to justify a new study? Would it be a topical void, a contradiction, or an overlooked perspective? Why does that kind of gap matter in media research?'
+  p3: 'In your own words, explain the difference between an annotated bibliography and a proper literature review. Why is that difference significant? Reflect on a time when you had to summarize multiple sources for a paper or project. Did you organize those sources thematically, or treat each one individually? Looking ahead, how will your approach change when writing your literature review?'
+---
+
+## Choose **one** prompt to answer
+
+> **Prompt B:** `r params$p2`
+
+---
+
+## Response
+
+<!-- RESPONSE-START -->
+If I were writing a literature review on portrayals of women and minority groups in movies, I would focus on the gap of the overlooked perspective. A lot of research already looks at how these groups are shown on screen, pointing out problems like stereotypes, token characters, or the lack of meaningful roles. However, research is missing how women and minority audiences themselves feel about these portrayals. In other words, we know a lot about what is being shown, but not enough about how people who belong to these groups actually internalize or respond to it. Representation is not just about what appears in a movie, it is also about how it is received. For example, a film that critics might praise as diverse or empowering could still feel fake, shallow, or offensive to some viewers. On the other hand, a movie that seems stereotypical on the surface might still be meaningful or relatable to certain audiences. If studies do not include these audience perspectives, they risk assuming the effects of representation instead of understanding them. By paying attention to this overlooked perspective, researchers could better connect on screen portrayals to real life experiences, identity, and feelings of belonging. It would also give more space for women and minority voices, who have often been left out of both movies and academic research. Filling this gap makes media studies stronger, because it looks at the whole picture, not just how women and minorities are portrayed, but how they see those portrayals and how it impacts their lives.
+<!-- RESPONSE-END -->
+
+---
+
+## Word Count & Range Check
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+get_response_text <- function() {
+  f <- knitr::current_input()
+  if (is.null(f) || !file.exists(f)) return("")
+  x <- readLines(f, warn = FALSE)
+  # Find the lines that EXACTLY match the start/end markers
+  s <- grep("^<!-- RESPONSE-START -->$", x)
+  e <- grep("^<!-- RESPONSE-END -->$", x)
+  if (length(s) != 1 || length(e) != 1 || e <= s) return("")
+  paste(x[(s + 1L):(e - 1L)], collapse = "\n")
+}
+count_words <- function(txt) {
+  # Remove code blocks and inline code before counting
+  txt <- gsub("```[\\s\\S]*?```", " ", txt, perl = TRUE)
+  txt <- gsub("`[^`]*`", " ", txt, perl = TRUE)
+  # Keep letters, numbers, spaces, hyphens, and apostrophes
+  txt <- gsub("[^\\p{L}\\p{N}\\s'-]", " ", txt, perl = TRUE)
+  # Split by whitespace and count non-empty words
+  words <- unlist(strsplit(txt, "\\s+", perl = TRUE))
+  words <- words[nzchar(words)]
+  length(words)
+}
+txt <- get_response_text()
+n <- count_words(txt)
+minw <- as.integer(params$word_min)
+maxw <- as.integer(params$word_max)
+in_range <- n >= minw && n <= maxw
+cat(sprintf("**Word count:** %d  \n", n))
+cat(sprintf("**Required range (%s):** %d–%d words  \n",
+            toupper(params$course), minw, maxw))
+cat(if (in_range) "**Status:** ✅ In range\n" else "**Status:** ❌ Out of range\n")
+```
