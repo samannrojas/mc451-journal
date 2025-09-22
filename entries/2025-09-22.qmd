@@ -1,0 +1,65 @@
+---
+title: "2025-09-22"
+format:
+  html: default
+  pdf: default
+params:
+  course: "mc451"
+  word_min: 250
+  word_max: 300
+  p1: 'Think of a broad media-related topic you’ve been curious about—something like influencer culture, algorithmic feeds, or news bias. Now, imagine you’re preparing to research this topic. Would you start with a research question or a hypothesis? Why? Reflect on how much you already know (or don’t know) about the topic, and how that affects whether exploration or prediction is the better fit.'
+  p2: 'This chapter outlines five criteria for strong research questions and hypotheses: clarity, grounding in literature, researchability, clear identification of variables or phenomena, and significance. Choose one of these criteria and explain why it seems especially important to you as a beginner researcher. Then, critique a question or hypothesis (real or imagined) that fails to meet this criterion. What makes it fall short?'
+  p3: 'The chapter emphasized that your research question or hypothesis should directly shape the method you choose. Why do you think that connection is so important? Choose one method (e.g., experiment, interview, content analysis) and describe what kind of research question or hypothesis best fits that method. Use your own topic or one discussed in the chapter as an example.'
+---
+
+## Choose **one** prompt to answer
+
+> **Prompt B:** `r params$p2`
+
+---
+
+## Response
+
+<!-- RESPONSE-START -->
+I think clarity is the most important criteria, especially for someone just starting out with research. When a question or hypothesis isn’t clear, it makes everything else harder, like choosing methods, deciding what data to collect, and even explaining the purpose of the study. If I don’t fully understand my own question, then there’s no way I can design a solid project around it. Without clarity, a project can become scattered, unfocused, and frustrating. A clear question helps to make decisions about what kind of data to collect, which methods to use, and how to understand the results. It also makes it easier to explain your work to others, which is important in both academic and professional settings. An example of a research question that lacks clarity is: “Do movies affect people?” At first glance, it sounds interesting, but it really doesn’t say much of anything and is very vague. What kind of movies are we talking about (horror, comedy, romance)? What kind of effects (emotions, attitudes, behaviors, beliefs)? Which group of people are we focusing on (adults, teens, women, men)? Since the question is so vague, there’s no direction for how to actually research it or start the study. A clearer version could be:“How does watching romantic comedies influence college students’ expectations of relationships?” This way, the variables are defined, the group is identified, and the effect is specific. This level of clarity makes the question stronger and now it is possible to design a study that can actually give meaningful results.
+<!-- RESPONSE-END -->
+
+---
+
+## Word Count & Range Check
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+get_response_text <- function() {
+  f <- knitr::current_input()
+  if (is.null(f) || !file.exists(f)) return("")
+  x <- readLines(f, warn = FALSE)
+  # Find the lines that EXACTLY match the start/end markers
+  s <- grep("^<!-- RESPONSE-START -->$", x)
+  e <- grep("^<!-- RESPONSE-END -->$", x)
+  if (length(s) != 1 || length(e) != 1 || e <= s) return("")
+  paste(x[(s + 1L):(e - 1L)], collapse = "\n")
+}
+count_words <- function(txt) {
+  # Remove code blocks and inline code before counting
+  txt <- gsub("```[\\s\\S]*?```", " ", txt, perl = TRUE)
+  txt <- gsub("`[^`]*`", " ", txt, perl = TRUE)
+  # Keep letters, numbers, spaces, hyphens, and apostrophes
+  txt <- gsub("[^\\p{L}\\p{N}\\s'-]", " ", txt, perl = TRUE)
+  # Split by whitespace and count non-empty words
+  words <- unlist(strsplit(txt, "\\s+", perl = TRUE))
+  words <- words[nzchar(words)]
+  length(words)
+}
+txt <- get_response_text()
+n <- count_words(txt)
+minw <- as.integer(params$word_min)
+maxw <- as.integer(params$word_max)
+in_range <- n >= minw && n <= maxw
+cat(sprintf("**Word count:** %d  \n", n))
+cat(sprintf("**Required range (%s):** %d–%d words  \n",
+            toupper(params$course), minw, maxw))
+cat(if (in_range) "**Status:** ✅ In range\n" else "**Status:** ❌ Out of range\n")
+```

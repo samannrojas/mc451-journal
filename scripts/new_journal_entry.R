@@ -105,7 +105,7 @@ new_journal_entry(week = 3)new_journal_entry <- function(
 	invisible(out)
 }
 
-# Run directly: prompt when sourced interactively
+new_journal_entry(week = 6# Run directly: prompt when sourced interactively
 if (sys.nframe() == 0L) {
 	pf <- if (file.exists("prompts_mc451.csv")) "prompts_mc451.csv"
 	else if (file.exists("prompts_mc501.csv")) "prompts_mc501.csv"
