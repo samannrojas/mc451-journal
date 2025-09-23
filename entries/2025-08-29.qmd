@@ -15,7 +15,6 @@ params:
 ## Choose **one** prompt to answer
 
 > **Prompt A:** `r params$p1`
-
 ------------------------------------------------------------------------
 
 ## Response
