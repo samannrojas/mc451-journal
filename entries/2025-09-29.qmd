@@ -1,0 +1,68 @@
+---
+title: "2025-09-29"
+format:
+  html: default
+  pdf: default
+params:
+  course: "mc451"
+  word_min: 250
+  word_max: 300
+  p1: 'The chapter opens with the story of John Snow and the Broad Street pump—an example of how sampling can reveal powerful truths about a whole system. Reflect on a time you formed a strong opinion or insight based on a small piece of evidence (e.g., a social media post, a conversation, a single article). Was that sample representative of the broader reality? What does this example teach you about the risks or rewards of inference from a small sample?'
+  p2: 'Imagine you are planning a study on how college students interact with AI tools like ChatGPT. Would you choose a probability sampling method or a non-probability one? Why? Consider your research goals—do you want to generalize to all college students or understand a specific group more deeply? Explain your choice and what trade-offs it involves in terms of access, time, cost, and generalizability.'
+  p3: 'Much of today’s research relies on digital data—tweets, posts, videos, and online surveys. This chapter explains how population bias, self-selection bias, and data availability bias can distort digital research. Choose one of these forms of bias and describe how it might affect a study of online news consumption or streaming habits. What could a researcher do to acknowledge or reduce that bias?'
+---
+
+## Choose **one** prompt to answer
+
+> **Prompt A:** `r params$p1`
+
+
+---
+
+## Response
+
+<!-- RESPONSE-START -->
+
+I used to avoid going to sushi restaurants because I assumed there would be nothing I liked. My opinion was based on one small piece of evidence: I do not like eating, or the taste of raw fish. From that, I decided that sushi places weren’t for me and I don’t like them. For years, I refused to go. I assumed my dislike of raw fish meant I would dislike the entire dining experience. In hindsight, I realize I had taken a very limited sample, my feelings about raw fish, and generalized it to decide an opinion on an entire type of cuisine. Eventually, I gave in and went to Wasabi with friends, and to my surprise, I discovered a variety of dishes I actually enjoyed. Many sushi restaurants offer a range of appetizers, soups, and cooked items that I had never considered. I found that I liked options such as miso soup, chicken katsu, gyoza, and California rolls, which do not contain raw fish. That single experience changed my mind and now I really enjoy going to Wasabi and enjoy the food I order. What I had treated as a representative “sample” of sushi restaurants was really just my personal bias against one food. This experience taught me about the risks of drawing conclusions from small or unrepresentative samples. It can feel efficient or easy to make decisions quickly based on limited evidence, but it also carries the danger of missing out on opportunities. At the same time, I learned that there are rewards when challenging those assumptions and testing opinions against broader evidence.
+
+<!-- RESPONSE-END -->
+
+---
+
+## Word Count & Range Check
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+get_response_text <- function() {
+  f <- knitr::current_input()
+  if (is.null(f) || !file.exists(f)) return("")
+  x <- readLines(f, warn = FALSE)
+  # Find the lines that EXACTLY match the start/end markers
+  s <- grep("^<!-- RESPONSE-START -->$", x)
+  e <- grep("^<!-- RESPONSE-END -->$", x)
+  if (length(s) != 1 || length(e) != 1 || e <= s) return("")
+  paste(x[(s + 1L):(e - 1L)], collapse = "\n")
+}
+count_words <- function(txt) {
+  # Remove code blocks and inline code before counting
+  txt <- gsub("```[\\s\\S]*?```", " ", txt, perl = TRUE)
+  txt <- gsub("`[^`]*`", " ", txt, perl = TRUE)
+  # Keep letters, numbers, spaces, hyphens, and apostrophes
+  txt <- gsub("[^\\p{L}\\p{N}\\s'-]", " ", txt, perl = TRUE)
+  # Split by whitespace and count non-empty words
+  words <- unlist(strsplit(txt, "\\s+", perl = TRUE))
+  words <- words[nzchar(words)]
+  length(words)
+}
+txt <- get_response_text()
+n <- count_words(txt)
+minw <- as.integer(params$word_min)
+maxw <- as.integer(params$word_max)
+in_range <- n >= minw && n <= maxw
+cat(sprintf("**Word count:** %d  \n", n))
+cat(sprintf("**Required range (%s):** %d–%d words  \n",
+            toupper(params$course), minw, maxw))
+cat(if (in_range) "**Status:** ✅ In range\n" else "**Status:** ❌ Out of range\n")
+```
