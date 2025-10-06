@@ -1,0 +1,67 @@
+---
+title: "2025-10-06"
+format:
+  html: default
+  pdf: default
+params:
+  course: "mc451"
+  word_min: 250
+  word_max: 300
+  p1: 'Choose an abstract concept that matters to you—something like identity, motivation, fandom, or stress. Now, imagine you’re going to study it for a research project. How would you go about clarifying its meaning? What dimensions or components would you want to include? Reflect on how difficult it is to turn a concept you feel into something you can study. What does this reveal about the importance of conceptualization?'
+  p2: 'Select one of the following concepts: political engagement, body image, media literacy, or interpersonal trust. First, write a short conceptual definition for the term in your own words. Then, brainstorm 2–3 specific ways a researcher might operationalize that concept. What kinds of survey questions, observational criteria, or behavioral measures might capture it? How do your choices shape what “counts” as evidence?'
+  p3: 'Think about a time you were measured or evaluated—maybe on a test, a performance review, or even a personality quiz. Did the measure feel reliable (consistent)? Did it feel valid (accurate)? Explain your experience and how it relates to the difference between reliability and validity. Why is it essential for a measure to be both? Which one seems more complicated to achieve, and why?'
+---
+
+## Choose **one** prompt to answer
+
+> **Prompt C:** `r params$p3`
+
+---
+
+## Response
+
+<!-- RESPONSE-START -->
+
+This question immediately made me think of zodiac signs. I’ve always found zodiac signs interesting to read about, but I don’t live my life by them. I see them as more of a fun way to reflect on personality traits rather than something completely accurate or scientific. I remember taking one of those zodiac-based personality quizzes that claimed to analyze my sign, Taurus. The results said I was dependable, loyal, and maybe a little stubborn, which had some truth to it. I took the quiz again later and got nearly identical results, so it felt reliable because it was consistent each time. However, I wouldn’t say it was valid in the sense of truly capturing who I am. Sure, some traits lined up, but others felt too generalized, like they could apply to almost anyone. That experience showed the difference between reliability and validity. Something can be steady and repeatable (reliable) without being truly accurate (valid). For any kind of measurement, whether it’s a test, a survey, or even a zodiac quiz, it’s important to have both. If something isn’t consistent, it can’t be trusted. However, if it’s consistent and still doesn’t reflect the truth, it’s not useful either. Between the two, I think validity is harder to achieve because accuracy depends on how well a test or system actually measures what it claims to. People are complex, and while zodiac signs can be entertaining and sometimes surprisingly fitting, they can’t really capture everything that makes someone who they are.
+
+<!-- RESPONSE-END -->
+
+---
+
+## Word Count & Range Check
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+get_response_text <- function() {
+  f <- knitr::current_input()
+  if (is.null(f) || !file.exists(f)) return("")
+  x <- readLines(f, warn = FALSE)
+  # Find the lines that EXACTLY match the start/end markers
+  s <- grep("^<!-- RESPONSE-START -->$", x)
+  e <- grep("^<!-- RESPONSE-END -->$", x)
+  if (length(s) != 1 || length(e) != 1 || e <= s) return("")
+  paste(x[(s + 1L):(e - 1L)], collapse = "\n")
+}
+count_words <- function(txt) {
+  # Remove code blocks and inline code before counting
+  txt <- gsub("```[\\s\\S]*?```", " ", txt, perl = TRUE)
+  txt <- gsub("`[^`]*`", " ", txt, perl = TRUE)
+  # Keep letters, numbers, spaces, hyphens, and apostrophes
+  txt <- gsub("[^\\p{L}\\p{N}\\s'-]", " ", txt, perl = TRUE)
+  # Split by whitespace and count non-empty words
+  words <- unlist(strsplit(txt, "\\s+", perl = TRUE))
+  words <- words[nzchar(words)]
+  length(words)
+}
+txt <- get_response_text()
+n <- count_words(txt)
+minw <- as.integer(params$word_min)
+maxw <- as.integer(params$word_max)
+in_range <- n >= minw && n <= maxw
+cat(sprintf("**Word count:** %d  \n", n))
+cat(sprintf("**Required range (%s):** %d–%d words  \n",
+            toupper(params$course), minw, maxw))
+cat(if (in_range) "**Status:** ✅ In range\n" else "**Status:** ❌ Out of range\n")
+```
