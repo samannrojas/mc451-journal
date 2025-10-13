@@ -1,0 +1,67 @@
+---
+title: "2025-10-13"
+format:
+  html: default
+  pdf: default
+params:
+  course: "mc451"
+  word_min: 250
+  word_max: 300
+  p1: 'Think about a time when you were asked to take a survey—maybe in a class, at work, or online. Did any of the questions confuse you, feel biased, or leave you without an option that reflected your honest opinion? Describe one such moment. What made the question problematic, and how might you rewrite it to improve it?'
+  p2: 'Imagine you''re designing a survey for your research project. What would be the central question your survey aims to answer? List two variables you’d want to measure and describe one closed-ended and one open-ended question you would include to help you do so. Why did you choose each format?'
+  p3: 'Why do you think people often ignore or skip surveys? From your perspective as both a respondent and future researcher, what strategies would make you more likely to complete a survey? How do your answers shape the way researchers must think about sampling and nonresponse?'
+---
+
+## Choose **one** prompt to answer
+
+> **Prompt C:** `r params$p3`
+
+------------------------------------------------------------------------
+
+## Response
+
+<!-- RESPONSE-START -->
+
+People often ignore or skip surveys for several reasons. Many surveys seem too long or boring so people don’t want to spend their time on them. Some think their answers won’t make a difference, or they worry about how their personal information will be used. With so many surveys and online popups for opinions, it is easy for people to just ignore them. Trust and relevance matter a lot. If a survey seems suspicious or unrelated to someone’s life, they are less likely to participate. Sometimes, even small annoyances, like poor wording or unclear instructions, can make people stop before finishing the survey. Keeping it short and simple, and clearly stating how long it will take, helps people know what to expect. Explaining why the survey matters and how the results will be used makes it feel more meaningful. Personalized invitations, instead of generic mass emails, show respondents that their opinions are valued. Offering small incentives, like a gift card, raffle, or other reward, can also motivate people to participate. These points are important for researchers to consider when thinking about sampling and nonresponse. When many people skip a survey, the results may not represent the entire group accurately, which can make the findings less reliable. Researchers need to design surveys that are easy to understand, engaging, and safe for participants. By doing this, they can increase response rates and collect more accurate, trustworthy data. Overall, understanding why people skip surveys helps researchers create better surveys and ensures their results reflect the population they want to study.
+
+<!-- RESPONSE-END -->
+
+------------------------------------------------------------------------
+
+## Word Count & Range Check
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+get_response_text <- function() {
+  f <- knitr::current_input()
+  if (is.null(f) || !file.exists(f)) return("")
+  x <- readLines(f, warn = FALSE)
+  # Find the lines that EXACTLY match the start/end markers
+  s <- grep("^<!-- RESPONSE-START -->$", x)
+  e <- grep("^<!-- RESPONSE-END -->$", x)
+  if (length(s) != 1 || length(e) != 1 || e <= s) return("")
+  paste(x[(s + 1L):(e - 1L)], collapse = "\n")
+}
+count_words <- function(txt) {
+  # Remove code blocks and inline code before counting
+  txt <- gsub("```[\\s\\S]*?```", " ", txt, perl = TRUE)
+  txt <- gsub("`[^`]*`", " ", txt, perl = TRUE)
+  # Keep letters, numbers, spaces, hyphens, and apostrophes
+  txt <- gsub("[^\\p{L}\\p{N}\\s'-]", " ", txt, perl = TRUE)
+  # Split by whitespace and count non-empty words
+  words <- unlist(strsplit(txt, "\\s+", perl = TRUE))
+  words <- words[nzchar(words)]
+  length(words)
+}
+txt <- get_response_text()
+n <- count_words(txt)
+minw <- as.integer(params$word_min)
+maxw <- as.integer(params$word_max)
+in_range <- n >= minw && n <= maxw
+cat(sprintf("**Word count:** %d  \n", n))
+cat(sprintf("**Required range (%s):** %d–%d words  \n",
+            toupper(params$course), minw, maxw))
+cat(if (in_range) "**Status:** ✅ In range\n" else "**Status:** ❌ Out of range\n")
+```
