@@ -1,0 +1,68 @@
+---
+title: "2025-10-20"
+format:
+  html: default
+  pdf: default
+params:
+  course: "mc451"
+  word_min: 250
+  word_max: 300
+  p1: 'Think of a headline or news story you’ve seen that claims one thing causes another (e.g., "Teens who use social media are more likely to be depressed"). Based on what you''ve learned in this chapter, explain why this claim may or may not be valid. What type of research design would be necessary to make such a claim confidently?'
+  p2: 'Choose a communication-related research question you’re interested in (e.g., “Does political meme exposure influence voting confidence?”). Then briefly describe how you might set up a simple experiment to test that question. What would you manipulate? What would you measure? How would random assignment help strengthen your conclusions?'
+  p3: 'Experiments often require researchers to deceive participants or control aspects of their environment. Reflect on how you feel about that. Do you think the benefits of experimental knowledge are worth these trade-offs? What would be essential to include in your debrief if you had to deceive participants in your study?'
+---
+
+## Choose **one** prompt to answer
+
+
+> **Prompt C:** `r params$p3`
+
+---
+
+## Response
+
+<!-- RESPONSE-START -->
+
+I think it is acceptable to use some level of deception in experiments to an extent, but there are clear ethical boundaries that should never be crossed. In certain studies, especially in psychology, limited deception can be necessary to prevent participants from changing their behavior and to obtain more accurate data. For example, social behavior studies might require participants to be unaware of the true purpose so that their responses remain natural. In these cases, the benefits of experimental knowledge can justify minor deception, but only if the study poses no harm and receives proper ethical approval. However, scientific evidence or data is never worth extreme deception or manipulation. Researchers have an ethical duty to protect participants from emotional distress, embarrassment, or harm. Misleading participants in a way that severely damages their trust, well-being, or autonomy crosses the line, no matter how valuable the findings might seem. A powerful reminder of what happens when those boundaries are ignored is the Tuskegee Syphilis Study which I learned about in another class. In this study African American men were misled and denied treatment so researchers could observe the disease’s progression. This unethical study caused immense suffering and violated basic human rights, showing that no amount of data can justify such deception. If some deception must be used, the debrief afterwards becomes essential. A proper debrief should fully explain the true purpose of the study, describe the nature and reason for the deception, and reassure participants that their reactions were normal and expected. It should also give them the opportunity to ask questions and withdraw their answers or data if they feel uncomfortable. Most importantly, the debrief should aim to restore honesty and respect, ensuring participants leave feeling informed and valued for their participation rather than misled and manipulated.
+
+<!-- RESPONSE-END -->
+
+---
+
+## Word Count & Range Check
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+get_response_text <- function() {
+  f <- knitr::current_input()
+  if (is.null(f) || !file.exists(f)) return("")
+  x <- readLines(f, warn = FALSE)
+  # Find the lines that EXACTLY match the start/end markers
+  s <- grep("^<!-- RESPONSE-START -->$", x)
+  e <- grep("^<!-- RESPONSE-END -->$", x)
+  if (length(s) != 1 || length(e) != 1 || e <= s) return("")
+  paste(x[(s + 1L):(e - 1L)], collapse = "\n")
+}
+count_words <- function(txt) {
+  # Remove code blocks and inline code before counting
+  txt <- gsub("```[\\s\\S]*?```", " ", txt, perl = TRUE)
+  txt <- gsub("`[^`]*`", " ", txt, perl = TRUE)
+  # Keep letters, numbers, spaces, hyphens, and apostrophes
+  txt <- gsub("[^\\p{L}\\p{N}\\s'-]", " ", txt, perl = TRUE)
+  # Split by whitespace and count non-empty words
+  words <- unlist(strsplit(txt, "\\s+", perl = TRUE))
+  words <- words[nzchar(words)]
+  length(words)
+}
+txt <- get_response_text()
+n <- count_words(txt)
+minw <- as.integer(params$word_min)
+maxw <- as.integer(params$word_max)
+in_range <- n >= minw && n <= maxw
+cat(sprintf("**Word count:** %d  \n", n))
+cat(sprintf("**Required range (%s):** %d–%d words  \n",
+            toupper(params$course), minw, maxw))
+cat(if (in_range) "**Status:** ✅ In range\n" else "**Status:** ❌ Out of range\n")
+```
