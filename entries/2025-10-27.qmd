@@ -1,0 +1,67 @@
+---
+title: "2025-10-27"
+format:
+  html: default
+  pdf: default
+params:
+  course: "mc451"
+  word_min: 250
+  word_max: 300
+  p1: 'Think about a media environment you engage with regularly—TikTok, news headlines, TV dramas, YouTube comments, etc. Choose one and describe a research question that could be answered through content analysis. What would you want to measure? Would you be more interested in manifest content (what’s there) or latent content (the underlying tone or message), and why?'
+  p2: 'Manual coding offers nuance; automated coding provides scale. Reflect on a situation where you believe a manual approach would be necessary despite being more time-consuming. Then, describe another situation where automation would be the better choice. What do your examples reveal about the limits and strengths of each?'
+  p3: 'When researchers assign meaning to words or visuals, especially in latent coding or sentiment analysis, they make interpretive choices. What risks might arise from misclassifying tone, intent, or topic? Why is coder training—or model training—so essential to ensure fairness, especially when analyzing issues involving identity, politics, or public opinion?'
+---
+
+## Choose **one** prompt to answer
+
+> **Prompt A:** `r params$p1`
+
+---
+
+## Response
+
+<!-- RESPONSE-START -->
+
+A media environment I engage with regularly is TikTok. One research question that could be explored through content analysis is: “How do TikTok creators promote sustainability while also encouraging consumerism through product recommendations?” Many TikTok users and influencers present themselves as environmentally conscious and promote sustainable lifestyles. However, a large portion of this content still focuses on buying new products, such as “eco-friendly” clothing, reusable cups, or sustainable beauty brands. These videos often market consumption as part of being environmentally responsible, which raises questions about the relationship between sustainability and consumer culture. In this study, I would want to measure how often creators link sustainability to purchasing behavior, what kinds of products they feature, and how these products are framed. For instance, do creators imply that buying these items is essential to living sustainably, or do they genuinely encourage reducing consumption and reusing what people already have? Examining the tone, presentation, and word choice of these videos could reveal a lot about the underlying messages being shared. I would focus primarily on latent content, which looks at the deeper meanings and attitudes behind the videos. While the manifest content might simply show creators talking about “green” or “eco-friendly” products, the latent content would help uncover whether the true message supports environmental responsibility or subtly promotes overconsumption disguised as sustainability. This type of analysis could highlight an important contradiction within TikTok culture: promoting sustainability while simultaneously driving consumer trends. By studying these patterns, I could better understand how TikTok shapes public perceptions of sustainability and whether it genuinely encourages eco-friendly behaviors, or simply repackages consumerism as a new, ethical lifestyle trend.
+
+<!-- RESPONSE-END -->
+
+---
+
+## Word Count & Range Check
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+get_response_text <- function() {
+  f <- knitr::current_input()
+  if (is.null(f) || !file.exists(f)) return("")
+  x <- readLines(f, warn = FALSE)
+  # Find the lines that EXACTLY match the start/end markers
+  s <- grep("^<!-- RESPONSE-START -->$", x)
+  e <- grep("^<!-- RESPONSE-END -->$", x)
+  if (length(s) != 1 || length(e) != 1 || e <= s) return("")
+  paste(x[(s + 1L):(e - 1L)], collapse = "\n")
+}
+count_words <- function(txt) {
+  # Remove code blocks and inline code before counting
+  txt <- gsub("```[\\s\\S]*?```", " ", txt, perl = TRUE)
+  txt <- gsub("`[^`]*`", " ", txt, perl = TRUE)
+  # Keep letters, numbers, spaces, hyphens, and apostrophes
+  txt <- gsub("[^\\p{L}\\p{N}\\s'-]", " ", txt, perl = TRUE)
+  # Split by whitespace and count non-empty words
+  words <- unlist(strsplit(txt, "\\s+", perl = TRUE))
+  words <- words[nzchar(words)]
+  length(words)
+}
+txt <- get_response_text()
+n <- count_words(txt)
+minw <- as.integer(params$word_min)
+maxw <- as.integer(params$word_max)
+in_range <- n >= minw && n <= maxw
+cat(sprintf("**Word count:** %d  \n", n))
+cat(sprintf("**Required range (%s):** %d–%d words  \n",
+            toupper(params$course), minw, maxw))
+cat(if (in_range) "**Status:** ✅ In range\n" else "**Status:** ❌ Out of range\n")
+```
