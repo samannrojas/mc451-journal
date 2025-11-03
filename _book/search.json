@@ -418,5 +418,45 @@
     "crumbs": [
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>2025-10-27</span>"
     ]
+  },
+  {
+    "objectID": "entries/2025-11-03.html",
+    "href": "entries/2025-11-03.html",
+    "title": "12  2025-11-03",
+    "section": "",
+    "text": "12.1 Choose one prompt to answer",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>2025-11-03</span>"
+    ]
+  },
+  {
+    "objectID": "entries/2025-11-03.html#choose-one-prompt-to-answer",
+    "href": "entries/2025-11-03.html#choose-one-prompt-to-answer",
+    "title": "12  2025-11-03",
+    "section": "",
+    "text": "Prompt A: Have you ever worked with a spreadsheet, dataset, or even a shared document that felt chaotic or disorganized? Describe the experience. What kinds of “messiness” did you encounter? Looking back, which data wrangling principles from this chapter would have helped clean it up?",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>2025-11-03</span>"
+    ]
+  },
+  {
+    "objectID": "entries/2025-11-03.html#response",
+    "href": "entries/2025-11-03.html#response",
+    "title": "12  2025-11-03",
+    "section": "12.2 Response",
+    "text": "12.2 Response\n\nYes, I have worked with a shared Word/Google document and slideshow project that felt very chaotic and disorganized. Several people were contributing to both files, but there wasn’t much structure or communication about how to organize our work. In the Word document, people often entered information in the wrong sections or repeated what someone else had already written. Some group members weren’t very detailed, while others wrote long paragraphs that didn’t match the rest of the document’s tone. There were also different writing styles, inconsistent fonts and headings, and no clear format for citing sources or labeling sections. The slideshow was just as messy, slides were out of order, text formatting changed from one slide to the next, and there were different color schemes and bullet styles throughout. Overall, it was difficult to tell what information was finalized and what still needed to be edited. Several data wrangling principles from the chapter would have been useful in this situation. The cleaning phase, which involves standardizing and organizing information, could have helped us maintain a consistent structure across the Word document and slides. Establishing clear formatting rules and ensuring everyone followed them would have reduced confusion and made the project look more professional. The transforming phase also relates to reorganizing data into a clear and usable format, similar to rearranging slides or reorganizing sections in the Word document so that the information flowed logically. Finally, the idea of a reproducible workflow could have helped our group document who made what changes and when, keeping the editing process transparent and easier to manage. Following these principles would have saved us time and made the final project much more cohesive.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>2025-11-03</span>"
+    ]
+  },
+  {
+    "objectID": "entries/2025-11-03.html#word-count-range-check",
+    "href": "entries/2025-11-03.html#word-count-range-check",
+    "title": "12  2025-11-03",
+    "section": "12.3 Word Count & Range Check",
+    "text": "12.3 Word Count & Range Check\n\n\n**Word count:** 282  \n\n\n**Required range (MC451):** 250–300 words  \n\n\n**Status:** ✅ In range",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>2025-11-03</span>"
+    ]
   }
 ]
