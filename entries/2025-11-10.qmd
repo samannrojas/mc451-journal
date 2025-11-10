@@ -1,0 +1,67 @@
+---
+title: "2025-11-10"
+format:
+  html: default
+  pdf: default
+params:
+  course: "mc451"
+  word_min: 250
+  word_max: 300
+  p1: 'Think about a variable you’ve seen reported often—something like income, grades, or social media followers. Was it reported as an average (mean)? Do you think that number accurately reflected the “typical” case? Based on what you learned in this chapter, would another measure of central tendency (median or mode) have been more appropriate? Why?'
+  p2: 'Describe a time when a graph or chart helped you understand something better than a list of numbers could. What did the visual help reveal? Based on this chapter, which principle of good visualization do you think was at work? If you’ve seen a bad graph or misleading chart, describe that too—and explain what could have made it clearer.'
+  p3: 'The chapter describes descriptive analysis as a “first conversation” with your data. Why is it essential to fully describe your sample before jumping to conclusions or testing hypotheses? How might skipping this step lead to bad research or misleading claims?'
+---
+
+## Choose **one** prompt to answer
+
+> **Prompt B:** `r params$p2`
+
+---
+
+## Response
+
+<!-- RESPONSE-START -->
+
+Yes, as a visual learner, I remember a time in a cultural anthropology course when a map visual helped me understand patterns of early human migration much more effectively than just the data could. The dataset listed migration routes, estimated dates, and archaeological sites, but reading it as a table of coordinates and time periods felt abstract and disconnected. When the same information was displayed on a world map with arrows indicating migration paths and color-coded time periods, the patterns made more sense. The visualization showed how early humans dispersed from Africa into Europe, Asia, and eventually the Americas, revealing not just where populations moved, but when and in what sequence. I could immediately see how climate shifts, such as glacial periods, corresponded with pauses or redirections in migration. This spatial representation transformed isolated data points into an easy to understand movement and adaptation over time. Based on this chapter, the key principles of “show the data” and “choose the right chart for the job” were clearly at work. The map was the most effective way to display geographic and temporal relationships, allowing me to see patterns that would have been nonexistent in numerical data. It presented the information clearly while reducing clutter and focusing attention on the meaningful trends. On the other hand, I once saw a poor visualization that used a 3D pie chart to display the distribution of cultural groups within a region. The 3D effect distorted the proportions, making some slices appear larger than they actually were. According to the principles in this chapter, a stacked bar chart or shaded map would have conveyed the same information far more clearly, helping to make accurate comparisons without visual distortion.
+
+<!-- RESPONSE-END -->
+
+---
+
+## Word Count & Range Check
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+get_response_text <- function() {
+  f <- knitr::current_input()
+  if (is.null(f) || !file.exists(f)) return("")
+  x <- readLines(f, warn = FALSE)
+  # Find the lines that EXACTLY match the start/end markers
+  s <- grep("^<!-- RESPONSE-START -->$", x)
+  e <- grep("^<!-- RESPONSE-END -->$", x)
+  if (length(s) != 1 || length(e) != 1 || e <= s) return("")
+  paste(x[(s + 1L):(e - 1L)], collapse = "\n")
+}
+count_words <- function(txt) {
+  # Remove code blocks and inline code before counting
+  txt <- gsub("```[\\s\\S]*?```", " ", txt, perl = TRUE)
+  txt <- gsub("`[^`]*`", " ", txt, perl = TRUE)
+  # Keep letters, numbers, spaces, hyphens, and apostrophes
+  txt <- gsub("[^\\p{L}\\p{N}\\s'-]", " ", txt, perl = TRUE)
+  # Split by whitespace and count non-empty words
+  words <- unlist(strsplit(txt, "\\s+", perl = TRUE))
+  words <- words[nzchar(words)]
+  length(words)
+}
+txt <- get_response_text()
+n <- count_words(txt)
+minw <- as.integer(params$word_min)
+maxw <- as.integer(params$word_max)
+in_range <- n >= minw && n <= maxw
+cat(sprintf("**Word count:** %d  \n", n))
+cat(sprintf("**Required range (%s):** %d–%d words  \n",
+            toupper(params$course), minw, maxw))
+cat(if (in_range) "**Status:** ✅ In range\n" else "**Status:** ❌ Out of range\n")
+```
